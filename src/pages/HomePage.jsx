@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 // import { Details } from "../components/Details"
 
 function HomePage() {
-  const { data, isPending } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: fetchUsers,
   });
@@ -13,7 +13,7 @@ function HomePage() {
   return (
     <>
       <Outlet />
-      {isPending && <div>Loading...</div>}
+      {isLoading && <div>Loading...</div>}
       {data && (
         <>
           <Cards users={data} />

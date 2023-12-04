@@ -1,6 +1,8 @@
 import { QueryClient } from "@tanstack/react-query"
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase"
+import { collection, getDocs, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { auth, db } from "./firebase"
+import { signOut } from "firebase/auth";
+import { redirect } from "react-router-dom";
 
 export const queryClient = new QueryClient()
 
@@ -34,4 +36,26 @@ export const createUser = async (user) => {
   })
 
   return response.json()
+}
+
+export const deleteOwnUser = async (userId) => {
+  let user = auth.currentUser;
+  if(!user.uid === userId) {
+    throw new Error("You can't delete another user's account", {status: 401});
+  }
+  try{
+    await deleteDoc(doc(db, "users", user.uid));
+    await user?.delete()
+    console.log("User deleted");
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    try {
+        await signOut(auth);
+    } catch (error) {
+        throw new Error('An error ocurred while loging out', {status: 500});
+    }
+    return redirect('/auth?mode=login');
+  }catch(error) {
+    throw new Error("An error ocurred while deleting the user", {status: 500});
+  };
 }

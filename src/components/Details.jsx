@@ -1,20 +1,32 @@
 /* eslint-disable react/prop-types */
 import classes from "./Details.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "../http";
-import { useParams, useRouteLoaderData } from "react-router-dom";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { deleteOwnUser, fetchUser, queryClient } from "../http";
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 export const Details = () => {
+  const navigate = useNavigate();
   const credentials = useRouteLoaderData("root");
   console.log(credentials?.isAdmin);
   const { userId } = useParams();
   const { data: user, isPending } = useQuery({
-    queryKey: ["users", userId],
+    queryKey: ["users", { userId }],
     queryFn: () => fetchUser(userId),
+  });
+
+  const { mutate, isPending: isDeletePending } = useMutation({
+    mutationFn: deleteOwnUser,
+    onMutate: () => {
+      queryClient.cancelQueries({ queryKey: ["users"] });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      navigate("/users", { replace: true });
+    },
   });
 
   return (
     <>
-      {isPending && <div>Loading...</div>}
+      {(isPending || isDeletePending) && <div>Loading...</div>}
       {user && (
         <>
           <div className={classes.card}>
@@ -40,12 +52,25 @@ export const Details = () => {
             </div>
             {credentials?.isAdmin && (
               <div className={classes.btn}>
-                <button className={classes.btnDelete}>Delete</button>
+                {credentials?.uid === userId && (
+                  <button
+                    className={classes.btnDelete}
+                    onClick={() => mutate(userId)}
+                  >
+                    Delete
+                  </button>
+                )}
                 <button className={classes.btnEdit}>Edit</button>
               </div>
             )}
             {!credentials?.isAdmin && credentials?.uid === userId && (
               <div className={classes.btn}>
+                <button
+                  className={classes.btnDelete}
+                  onClick={() => mutate(userId)}
+                >
+                  Delete
+                </button>
                 <button className={classes.btnEdit}>Edit</button>
               </div>
             )}
