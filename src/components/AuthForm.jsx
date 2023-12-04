@@ -26,16 +26,22 @@ function AuthForm() {
         <p>
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" required />
-          {data?.errors?.email && (
-            <small style={{ color: "red" }}>{data?.errors?.email}</small>
-          )}
+          {data?.errors?.email &&
+            data.errors.email.map((msg) => (
+              <small key={msg} style={{ color: "red" }}>
+                {data?.errors?.email}
+              </small>
+            ))}
         </p>
         <p>
           <label htmlFor="password">Password</label>
           <input id="password" type="password" name="password" required />
-          {data?.errors?.password && (
-            <small style={{ color: "red" }}>{data?.errors?.password}</small>
-          )}
+          {data?.errors?.password &&
+            data.errors.password.map((msg) => (
+              <small key={msg} style={{ color: "red" }}>
+                {data?.errors?.email}
+              </small>
+            ))}
         </p>
         {!isLogin && (
           <>
@@ -43,33 +49,41 @@ function AuthForm() {
               <label htmlFor="password2">Confirm password</label>
               <input id="password2" type="password" name="password2" required />
             </p>
-            {data?.errors?.password2 && (
-              <small style={{ color: "red" }}>{data?.errors?.password2}</small>
-            )}
+            {data?.errors?.password2 &&
+              data.errors.password2.map((msg) => (
+                <small key={msg} style={{ color: "red" }}>
+                  {data?.errors?.email}
+                </small>
+              ))}
             <p>
               <label htmlFor="avatarUrl">Avatar url</label>
               <input id="avatarUrl" type="text" name="avatarUrl" required />
-              {data?.errors?.avatarUrl && (
-                <small style={{ color: "red" }}>
-                  {data?.errors?.avatarUrl}
-                </small>
-              )}
+              {data?.errors?.avatarUrl &&
+                data.errors.avatarUrl.map((msg) => (
+                  <small key={msg} style={{ color: "red" }}>
+                    {data?.errors?.email}
+                  </small>
+                ))}
             </p>
             <p>
               <label htmlFor="displayName">User name</label>
               <input id="displayName" type="text" name="displayName" required />
-              {data?.errors?.displayName && (
-                <small style={{ color: "red" }}>
-                  {data?.errors?.displayName}
-                </small>
-              )}
+              {data?.errors?.displayName &&
+                data.errors.displayName.map((msg) => (
+                  <small key={msg} style={{ color: "red" }}>
+                    {data?.errors?.email}
+                  </small>
+                ))}
             </p>
             <p>
               <label htmlFor="photoUrl">Photo url</label>
               <input id="photoUrl" type="text" name="photoUrl" required />
-              {data?.errors?.photoUrl && (
-                <small style={{ color: "red" }}>{data?.errors?.photoUrl}</small>
-              )}
+              {data?.errors?.photoUrl &&
+                data.errors.photoUrl.map((msg) => (
+                  <small key={msg} style={{ color: "red" }}>
+                    {data?.errors?.email}
+                  </small>
+                ))}
             </p>
             <p>
               <label htmlFor="description">Description</label>
@@ -79,11 +93,12 @@ function AuthForm() {
                 name="description"
                 required
               />
-              {data?.errors?.description && (
-                <small style={{ color: "red" }}>
-                  {data?.errors?.description}
-                </small>
-              )}
+              {data?.errors?.description &&
+                data.errors.description.map((msg) => (
+                  <small key={msg} style={{ color: "red" }}>
+                    {data?.errors?.email}
+                  </small>
+                ))}
             </p>
           </>
         )}

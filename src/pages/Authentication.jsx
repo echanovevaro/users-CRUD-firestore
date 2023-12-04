@@ -44,10 +44,11 @@ export async function action({ request }) {
   if (!validations.success) {
     const errors = {};
     for (const error of validations.error.errors) {
-      if (!errors[error.path[0]]) errors[error.path[0]] = error.message;
+      if (!errors[error.path[0]]) errors[error.path[0]] = [error.message];
+      else errors[error.path[0]].push(error.message);
     }
     console.log(errors);
-    return json({ message: "Validation failed" }, { errors }, { status: 422 });
+    return json({ message: "Validation failed", errors }, { status: 422 });
   }
 
   data = validations.data;
