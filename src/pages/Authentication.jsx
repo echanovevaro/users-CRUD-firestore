@@ -152,6 +152,7 @@ export async function action({ request }) {
           await sendEmailVerification(auth.currentUser, {
             url: "http://localhost:5173/auth?mode=login",
           });
+          logOut();
         } catch (e) {
           console.log(e);
           return json({ message: "Something went wrong" }, { status: 500 });
