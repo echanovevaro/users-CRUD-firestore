@@ -46,7 +46,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   padding: 1rem;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .user h4 {
   margin: 0;

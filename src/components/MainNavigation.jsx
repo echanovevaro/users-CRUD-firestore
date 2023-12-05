@@ -43,6 +43,17 @@ function MainNavigation() {
         <ul className={classes.list}>
           {token && (
             <>
+              <li>
+                <NavLink
+                  to={`/users/${credentials.uid}`}
+                  className={({ isActive }) =>
+                    isActive ? classes.active : undefined
+                  }
+                  end
+                >
+                  My Profile
+                </NavLink>
+              </li>
               {isAdmin && (
                 <li>
                   <NavLink

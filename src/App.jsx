@@ -13,8 +13,7 @@ import DetailUser from "./pages/DetailUser";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
-import { action as logoutAction } from "./pages/logout";
-import { checkAuthLoader, tokenLoader } from "./utils/auth";
+import { checkAuthLoader, tokenLoader, logOut } from "./utils/auth";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +24,16 @@ const router = createBrowserRouter([
     loader: tokenLoader,
     children: [
       { index: true, element: <Navigate to="/users" replace /> },
-      { path: "auth", element: <AuthenticationPage />, action: authAction },
-      { path: "logout", action: logoutAction },
+      {
+        path: "auth",
+        element: <AuthenticationPage />,
+        action: authAction,
+      },
+      {
+        path: "logout",
+        action: logOut,
+        element: <Navigate to="/auth?mode=login" replace />,
+      },
       {
         path: "users",
         element: <HomePage />,

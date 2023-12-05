@@ -56,3 +56,14 @@ export function checkAuthLoader() {
   }
   return null;
 }
+
+export function logOut() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expiration');
+  try {
+      auth.signOut();
+  } catch (error) {
+      throw new Error('An error ocurred while loging out', {status: 500});
+  }
+  return null;
+}

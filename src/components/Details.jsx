@@ -57,7 +57,7 @@ export const Details = () => {
                     className={classes.btnDelete}
                     onClick={() => mutate(userId)}
                   >
-                    Delete
+                    Delete my account
                   </button>
                 )}
                 <button className={classes.btnEdit}>Edit</button>
@@ -69,7 +69,7 @@ export const Details = () => {
                   className={classes.btnDelete}
                   onClick={() => mutate(userId)}
                 >
-                  Delete
+                  Delete my account
                 </button>
                 <button className={classes.btnEdit}>Edit</button>
               </div>
