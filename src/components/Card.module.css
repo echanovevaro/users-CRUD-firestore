@@ -1,4 +1,4 @@
-.cardheader img {
+/* .cardheader img {
   width: 100%;
   border: 1px solid black;
 }
@@ -62,4 +62,14 @@ small {
   padding: 1rem 0;
   font-size: 10px;
   color: #2b55e0;
+} */
+
+img {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  max-width: 100%;
+}
+.link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }

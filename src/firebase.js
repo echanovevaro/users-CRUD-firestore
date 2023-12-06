@@ -20,3 +20,19 @@ const firebaseConfig = {
 export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+export const addField = async (collection, field, value) => {
+  const batch = db.batch();
+
+  const fieldUpdate = {}
+  fieldUpdate[field] = value
+
+  db.collection(collection).get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          const docRef = db.collection(collection).doc(doc.id)
+          batch.update(docRef, fieldUpdate)
+      });
+
+      batch.commit();
+  });
+}

@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
+import { Container } from "react-bootstrap";
 
 function Root() {
   return (
-    <>
+    <Container>
       <MainNavigation />
       <main>
         <Outlet />
       </main>
-    </>
+    </Container>
   );
 }
 

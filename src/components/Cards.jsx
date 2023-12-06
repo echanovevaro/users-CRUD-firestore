@@ -1,14 +1,13 @@
-import { Card } from "./Card"
-import classes from "./Cards.module.css"
+import { UserCard } from "./Card";
+import classes from "./Cards.module.css";
+import Row from "react-bootstrap/Row";
 
 export const Cards = ({ users }) => {
   return (
-    <ul className={classes.cards}>
+    <Row className="m-2 grid">
       {users?.map((user) => (
-        <li key={user.id} className={classes.card}>
-          <Card user={user} />
-        </li>
+        <UserCard key={user.id} user={user} />
       ))}
-    </ul>
-  )
-}
+    </Row>
+  );
+};
